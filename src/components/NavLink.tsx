@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLinkProps, NavLink as BaseNavLink } from 'react-router-dom';
+import React from "react";
+import { NavLinkProps, NavLink as BaseNavLink } from "react-router-dom";
 
 const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
   ({ to, children, ...rest }, ref) => {
@@ -8,7 +8,7 @@ const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
         {children}
       </BaseNavLink>
     );
-  }
+  },
 );
 
 export default NavLink;

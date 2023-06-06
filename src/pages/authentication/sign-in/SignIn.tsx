@@ -1,51 +1,91 @@
-import React from 'react';
-import { Form, Button, Panel, IconButton, Stack, Divider } from 'rsuite';
-import { Link } from 'react-router-dom';
-import GithubIcon from '@rsuite/icons/legacy/Github';
-import FacebookIcon from '@rsuite/icons/legacy/Facebook';
-import GoogleIcon from '@rsuite/icons/legacy/Google';
-import WechatIcon from '@rsuite/icons/legacy/Wechat';
-import Brand from '@/components/Brand';
+import React, { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  Form,
+  Button,
+  Panel,
+  Stack,
+  Divider,
+  Message,
+  Schema,
+  FormInstance,
+} from "rsuite";
+import { useNavigate } from "react-router-dom";
+import Brand from "@/components/Brand";
+import useUserStore from "@/store/useUserStore";
+import TextField from "@/components/Form/TextField";
 
-const SignUp = () => {
+const SingIn = () => {
+  const [error, setError] = useState<string>("");
+  const login = useUserStore(state => state.login);
+  const navigate = useNavigate();
+  const [isLogging, setIsLogging] = useState(false);
+  const isAuthenticated = useUserStore(state => state.isAuthenticated);
+  const getCurrentUser = useUserStore(state => state.getCurrentUser);
+  const formRef = useRef() as React.Ref<FormInstance>;
+  const model = Schema.Model({
+    username: Schema.Types.StringType().isRequired("Username is required"),
+    password: Schema.Types.StringType().isRequired("Password is required"),
+  });
+  const [formData, setFormData] = useState<Record<string, any>>({
+    username: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, [isAuthenticated, navigate]);
+
+  const handleLogin = async (
+    isValid: boolean,
+    e: FormEvent<HTMLFormElement>,
+  ) => {
+    e.preventDefault();
+
+    if (!isValid) return;
+
+    try {
+      setIsLogging(true);
+      await login(formData.username, formData.password);
+      setIsLogging(false);
+    } catch (e) {
+      setError((e as Error).message);
+      setIsLogging(false);
+    }
+  };
+
   return (
     <Stack
       justifyContent="center"
       alignItems="center"
       direction="column"
       style={{
-        height: '100vh'
+        height: "100vh",
       }}
     >
       <Brand style={{ marginBottom: 10 }} />
 
-      <Panel bordered style={{ background: '#fff', width: 400 }} header={<h3>Sign In</h3>}>
-        <p style={{ marginBottom: 10 }}>
-          <span className="text-muted">New Here? </span>{' '}
-          <Link to="/sign-up"> Create an Account</Link>
-        </p>
-
-        <Form fluid>
+      <Panel bordered style={{ width: 400 }} header={<h3>Sign In</h3>}>
+        <Form
+          fluid
+          onSubmit={handleLogin}
+          model={model}
+          ref={formRef}
+          onChange={setFormData}
+        >
+          <TextField name="username" label="User Name"></TextField>
+          <TextField name="password" label="Password"></TextField>
           <Form.Group>
-            <Form.ControlLabel>Username or email address</Form.ControlLabel>
-            <Form.Control name="name" />
-          </Form.Group>
-          <Form.Group>
-            <Form.ControlLabel>
-              <span>Password</span>
-              <a style={{ float: 'right' }}>Forgot password?</a>
-            </Form.ControlLabel>
-            <Form.Control name="name" type="password" />
+            {error && <Message type="error">{error}</Message>}
           </Form.Group>
           <Form.Group>
             <Stack spacing={6} divider={<Divider vertical />}>
-              <Button appearance="primary">Sign in</Button>
-              <Stack spacing={6}>
-                <IconButton icon={<WechatIcon />} appearance="subtle" />
-                <IconButton icon={<GithubIcon />} appearance="subtle" />
-                <IconButton icon={<FacebookIcon />} appearance="subtle" />
-                <IconButton icon={<GoogleIcon />} appearance="subtle" />
-              </Stack>
+              <Button appearance="primary" type="submit" loading={isLogging}>
+                Sign in
+              </Button>
             </Stack>
           </Form.Group>
         </Form>
@@ -54,4 +94,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SingIn;

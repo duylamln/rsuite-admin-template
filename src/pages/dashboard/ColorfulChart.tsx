@@ -1,65 +1,64 @@
-import React from 'react';
-import classNames from 'classnames';
-import Chart from 'react-apexcharts';
+import React from "react";
+import classNames from "classnames";
+import Chart from "react-apexcharts";
 
 interface ColorfulChartProps {
   className?: string;
   title: string;
   data: any;
   type?:
-    | 'line'
-    | 'area'
-    | 'bar'
-    | 'histogram'
-    | 'pie'
-    | 'donut'
-    | 'radialBar'
-    | 'scatter'
-    | 'bubble'
-    | 'heatmap'
-    | 'treemap'
-    | 'boxPlot'
-    | 'candlestick'
-    | 'radar'
-    | 'polarArea'
-    | 'rangeBar';
+    | "line"
+    | "area"
+    | "bar"
+    | "histogram"
+    | "pie"
+    | "donut"
+    | "radialBar"
+    | "scatter"
+    | "bubble"
+    | "heatmap"
+    | "treemap"
+    | "boxPlot"
+    | "candlestick"
+    | "radar"
+    | "polarArea"
+    | "rangeBar";
   options?: any;
 }
 
 const defaultOptions = {
   chart: {
-    id: 'sparkline1',
-    type: 'line',
+    id: "sparkline1",
+    type: "line",
     height: 140,
     sparkline: {
-      enabled: true
+      enabled: true,
     },
-    group: 'sparklines'
+    group: "sparklines",
   },
   stroke: {
-    curve: 'smooth'
+    curve: "smooth",
   },
   markers: {
-    size: 0
+    size: 0,
   },
   tooltip: {
-    cssClass: 'tooltip-custom',
+    cssClass: "tooltip-custom",
     marker: {
-      show: false
+      show: false,
     },
     fixed: {
       enabled: true,
-      position: 'right'
+      position: "right",
     },
     x: {
-      show: false
-    }
+      show: false,
+    },
   },
-  colors: ['#fff']
 };
 
 const ColorfulChart = ({ className, title, data, type, options }: ColorfulChartProps) => (
-  <div className={classNames('colorful-chart', className)}>
+  <div className={classNames("colorful-chart", className)}>
     <h3>{title}</h3>
     <Chart
       series={data}

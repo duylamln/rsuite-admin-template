@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { Form, Button, Panel, InputGroup, Stack, Checkbox, Divider } from 'rsuite';
-import EyeIcon from '@rsuite/icons/legacy/Eye';
-import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
-import { Link } from 'react-router-dom';
-import Brand from '@/components/Brand';
+import { Form, Button, Panel, InputGroup, Stack, Checkbox, Divider } from "rsuite";
+import EyeIcon from "@rsuite/icons/legacy/Eye";
+import EyeSlashIcon from "@rsuite/icons/legacy/EyeSlash";
+import { Link } from "react-router-dom";
+import Brand from "@/components/Brand";
 
 const SignIn = () => {
   const [visible, setVisible] = React.useState(false);
@@ -15,15 +15,11 @@ const SignIn = () => {
       alignItems="center"
       direction="column"
       style={{
-        height: '100vh'
+        height: "100vh",
       }}
     >
       <Brand style={{ marginBottom: 10 }} />
-      <Panel
-        header={<h3>Create an Account</h3>}
-        bordered
-        style={{ background: '#fff', width: 400 }}
-      >
+      <Panel header={<h3>Create an Account</h3>} bordered style={{ width: 400 }}>
         <p>
           <span>Already have an account?</span> <Link to="/sign-in">Sign in here</Link>
         </p>
@@ -42,10 +38,10 @@ const SignIn = () => {
           </Form.Group>
           <Form.Group>
             <Form.ControlLabel>Password</Form.ControlLabel>
-            <InputGroup inside style={{ width: '100%' }}>
+            <InputGroup inside style={{ width: "100%" }}>
               <Form.Control
                 name="password"
-                type={visible ? 'text' : 'password'}
+                type={visible ? "text" : "password"}
                 autoComplete="off"
               />
               <InputGroup.Button onClick={() => setVisible(!visible)}>

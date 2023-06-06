@@ -1,6 +1,6 @@
-import React from 'react';
-import { DOMHelper, Table } from 'rsuite';
-import { mockUsers } from '@/data/mock';
+import React from "react";
+import { DOMHelper, Table } from "rsuite";
+import { mockUsers } from "@/data/mock";
 
 const { Column, HeaderCell, Cell } = Table;
 const { getHeight } = DOMHelper;
