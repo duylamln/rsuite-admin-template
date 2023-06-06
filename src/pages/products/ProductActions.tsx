@@ -4,7 +4,8 @@ import TrashIcon from "@rsuite/icons/Trash";
 import EditIcon from "@rsuite/icons/Edit";
 import useProductStore from "@/store/useProductStore";
 import createConfirmation from "@/utils/confirmationDialog";
-import { Product } from "@/services/productService";
+import { Product } from "@/entities/Entity";
+
 const { Cell } = Table;
 
 export default function CustomerActions({
