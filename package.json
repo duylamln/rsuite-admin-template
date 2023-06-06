@@ -8,9 +8,8 @@
   },
   "scripts": {
     "dev": "webpack serve --mode development --port 3100 --host 0.0.0.0 --progress ",
-    "clear": "rm -rf assets",
-    "build:webpack": "webpack --mode production --progress && cp -R public/* ./assets/ ",
-    "build": "npm run clear && npm run build:webpack",
+    "build:webpack": "webpack --mode production --progress",
+    "build": "npm run build:webpack",
     "publish:gh-pages": "node gh-pages.js"
   },
   "keywords": [

@@ -1,80 +1,80 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
+const path = require("path");
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlwebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlwebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: './src/index.tsx',
-  devtool: 'source-map',
+  entry: "./src/index.tsx",
+  devtool: "source-map",
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: [".ts", ".tsx", ".js", ".json"],
   },
   devServer: {
     hot: true,
     disableHostCheck: true,
     historyApiFallback: true,
-    contentBase: path.resolve(__dirname, ''),
-    publicPath: '/'
+    contentBase: path.resolve(__dirname, ""),
+    publicPath: "/",
   },
   output: {
-    path: path.resolve(__dirname, 'assets'),
-    filename: 'bundle.js',
-    publicPath: './'
+    path: path.resolve(__dirname, "public"),
+    filename: "bundle.js",
+    publicPath: "./",
   },
 
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['babel-loader'],
-        exclude: /node_modules/
+        use: ["babel-loader"],
+        exclude: /node_modules/,
       },
       {
         test: /\.(jpg|png|svg)$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: "url-loader",
             options: {
               limit: 8192,
-              publicPath: '/'
-            }
-          }
-        ]
+              publicPath: "/",
+            },
+          },
+        ],
       },
       {
         test: /\.(less|css)$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader'
+            loader: "css-loader",
           },
           {
-            loader: 'less-loader',
+            loader: "less-loader",
             options: {
               sourceMap: true,
               lessOptions: {
-                javascriptEnabled: true
-              }
-            }
-          }
-        ]
-      }
-    ]
+                javascriptEnabled: true,
+              },
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'Admin Dashboard Template',
-      filename: 'index.html',
-      template: './src/index.html',
+      title: "KAN Store",
+      filename: "index.html",
+      template: "./src/index.html",
       inject: true,
       hash: true,
-      path: './'
+      path: "./",
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
-    })
-  ]
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
+  ],
 };
